@@ -1,83 +1,71 @@
-var View = function()
+var View = function(parent)
 {
+    this.parent_ = parent;
     this.initialize();
 };
 
 
-View.prototype.inputElement;
-
-View.prototype.button = null;
+View.prototype.inputElement_;
 
 
-View.prototype.setTextToEditor = function(text)
+View.prototype.parent_;
+
+
+View.prototype.setText = function(text)
 {
-    this.inputElement.value = text;
-}
+    this.inputElement_.value = text;
+};
 
 
-View.prototype.getTextFromEditor = function()
+View.prototype.getText = function()
 {
-    return this.inputElement.value;
-}
+    return this.inputElement_.value;
+};
 
 
 View.prototype.initialize = function()
 {
-    this.initializeInputElement();
-    this.initializeButton();
-}
+	this.inputElement_ = document.createElement('input');
+	this.inputElement_.style.width = '200px';
+	this.inputElement_.style.height = '20px';
 
-View.prototype.initializeInputElement = function()
-{
-	this.inputElement = document.createElement('input');
-	this.inputElement.style.width = '200px';
-	this.inputElement.style.height = '20px';
+	this.inputElement_.hidden = false;
 
-	this.inputElement.hidden = false;
-
-	document.body.appendChild(this.inputElement);
-
-}
+	//устанавливаем стандартный обработчик ввода
+	this.inputElement_.input = function(event)
+    {
+        this.setText(this.getText() + String.fromCharCode(event.charCode));
+    };
 
 
-View.prototype.initializeButton = function()
-{
-    this.button = document.createElement('button');
-
-    this.button.textContent = 'Hide/Show';
-
-    document.body.appendChild(this.button);
-}
+	if(this.parent_)
+	    this.parent_.appendChild(this.inputElement_);
+	else
+	    document.body.appendChild(this.inputElement_)
+};
 
 
 View.prototype.isHidden = function()
 {
-    return this.inputElement.hidden;
-}
+    return this.inputElement_.hidden;
+};
 
 
-View.prototype.showEditor = function()
+View.prototype.show = function()
 {
-	this.inputElement.style.visibility = 'visible';
-	this.inputElement.hidden = false;
-}
+	this.inputElement_.style.visibility = 'visible';
+	this.inputElement_.hidden = false;
+};
 
 
-View.prototype.hideEditor = function()
+View.prototype.hide = function()
 {
-	this.inputElement.style.visibility = 'hidden';
-	this.inputElement.hidden = true;
-}
+	this.inputElement_.style.visibility = 'hidden';
+	this.inputElement_.hidden = true;
+};
 
 
 View.prototype.setInputHandler = function(func)
 {
-    this.inputElement.input = func;
-}
-
-
-View.prototype.setButtonOnClickHandler = function(func)
-{
-    this.button.onclick = func;
-}
-
+    this.inputElement_.input = func;
+};

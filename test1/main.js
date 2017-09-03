@@ -1,38 +1,16 @@
-
-var importedView = document.createElement('script');
-importedView.src = './view.js';
-document.head.appendChild(importedView);
-
-var importedData = document.createElement('script');
-importedData.src = './data.js';
-document.head.appendChild(importedData);
-
+var importedTextEditor = document.createElement('script');
+importedTextEditor.src = './texteditor.js';
+document.head.appendChild(importedTextEditor);
 
 function main()
 {
-    var view = new View();
-    var data = new Data();
+	var element = document.createElement('div');
+	element.style.height = '100px';
+	element.style.width = '200px';
+	element.style.backgroundColor = 'black';
 
-    view.setInputHandler(
-    	function(event)
-		{
-			if(!view.isHidden())
-				view.setTextToEditor(view.getTextFromEditor() + String.fromCharCode(event.charCode));
-		}
-	);
+	document.body.appendChild(element);
 
-	view.setButtonOnClickHandler(
-		function(event) {
-			if(view.inputElement.hidden)
-			{
-				view.showEditor();
-				view.setTextToEditor(data.get());
-			}
-			else
-			{
-				view.hideEditor();
-				data.set(view.getTextFromEditor());
-			}
-	}
-	);
-}
+    var editor = new TextEditor(element);
+    editor.setText('База');
+};

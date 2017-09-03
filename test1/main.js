@@ -19,12 +19,20 @@ function main()
 
 	element.appendChild(button);
 
+	var hiddenEditor = false;
 	button.onclick = function(event)
 	{
-		if(editor.isHidden())
+		if(hiddenEditor)
+		{
 			editor.show();
+			hiddenEditor = false;
+		}
 		else
+		{
 			editor.hide();
+			hiddenEditor = true;
+		}
+
 	}
 
 };

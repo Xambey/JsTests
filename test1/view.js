@@ -5,9 +5,6 @@ var View = function(parent)
 };
 
 
-View.prototype.inputElement_;
-
-
 View.prototype.parent_;
 
 
@@ -32,9 +29,12 @@ View.prototype.initialize = function()
 	this.inputElement_.hidden = false;
 
 	//устанавливаем стандартный обработчик ввода
-	this.inputElement_.input = function(event)
+	this.inputElement_.onkeydown = function(event)
     {
-        this.setText(this.getText() + String.fromCharCode(event.charCode));
+        var char = event.key;
+        if((parseFloat(char) && parseInt(char)) || char === '.')
+            event.target.value += char;
+        event.preventDefault();
     };
 
 

@@ -63,9 +63,3 @@ View.prototype.hide = function()
 	this.inputElement_.style.visibility = 'hidden';
 	this.inputElement_.hidden = true;
 };
-
-
-View.prototype.setInputHandler = function(func)
-{
-    this.inputElement_.input = func;
-};

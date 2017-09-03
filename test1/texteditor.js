@@ -16,23 +16,6 @@ var TextEditor = function(parent)
 		this.view_ = new View(parent);
 	else
 		this.view_ = new View(); // или добавится в body
-
-
-//	this.view_.setButtonOnClickHandler(
-//		function(event) {
-//			if(this.view_.inputElement.hidden)
-//			{
-//				this.view_.showEditor();
-//				this.view_.setTextToEditor(this.data_.get());
-//			}
-//			else
-//			{
-//				this.view_.hideEditor();
-//				this.data_.set(this.view_.getTextFromEditor());
-//			}
-//		}
-//	);
-
 };
 
 
@@ -70,10 +53,4 @@ TextEditor.prototype.hide = function()
 {
 	if(!this.view_.isHidden())
 		this.view_.hide();
-}
-
-
-TextEditor.prototype.isHidden = function()
-{
-	return this.view_.isHidden();
 }

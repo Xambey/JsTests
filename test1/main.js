@@ -13,4 +13,18 @@ function main()
 
     var editor = new TextEditor(element);
     editor.setText('База');
+
+	var button = document.createElement('button');
+	button.textContent = 'Hide/Show';
+
+	element.appendChild(button);
+
+	button.onclick = function(event)
+	{
+		if(editor.isHidden())
+			editor.show();
+		else
+			editor.hide();
+	}
+
 };

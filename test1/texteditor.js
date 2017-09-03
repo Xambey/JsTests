@@ -72,3 +72,8 @@ TextEditor.prototype.hide = function()
 		this.view_.hide();
 }
 
+
+TextEditor.prototype.isHidden = function()
+{
+	return this.view_.isHidden();
+}

@@ -57,3 +57,18 @@ TextEditor.prototype.getText = function()
 		return this.data_.get();
 	return this.view_.getText();
 };
+
+
+TextEditor.prototype.show = function()
+{
+	if(this.view_.isHidden())
+		this.view_.show();
+}
+
+
+TextEditor.prototype.hide = function()
+{
+	if(!this.view_.isHidden())
+		this.view_.hide();
+}
+

@@ -27,15 +27,40 @@ View.prototype.initialize = function()
 	this.inputElement_.style.height = '20px';
 
 	this.inputElement_.hidden = false;
+	this.inputElement_.moving = false;
 
-	//устанавливаем стандартный обработчик ввода
+
 	this.inputElement_.onkeydown = function(event)
-    {
-        var char = event.key;
-        if((parseFloat(char) && parseInt(char)) || char === '.')
-            event.target.value += char;
-        event.preventDefault();
-    };
+	{
+		var char = event.key;
+		if(!parseFloat(char)
+			&& char !== '.'
+			&& char !== 'Backspace'
+			&& char !== 'Delete'
+			&& char !== 'ArrowLeft'
+			&& char !== 'ArrowRight'
+		)
+		{
+			event.preventDefault();
+		}
+	};
+	
+	this.inputElement_.onmousedown = function(event)
+	{
+		var target = event.target;
+		var info = target.getBoundingClientRect();
+		if(info.right === event.pageX && info.bottom === event.pageY) {
+			target.style.cursor = 'e-resize';
+		}
+		else if(event.pageX > info.left && event.pageX < info.right && event.pageY > info.top && event.pageY < info.bottom) {
+
+		}
+		else {
+			target.style.cursor = 'text';
+		}
+	}
+
+
 
 
 	if(this.parent_)

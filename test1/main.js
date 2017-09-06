@@ -12,7 +12,6 @@ function main()
 	document.body.appendChild(element);
 
     var editor = new TextEditor(element);
-    editor.setText('База');
 
 	var button = document.createElement('button');
 	button.textContent = 'Hide/Show';

@@ -41,11 +41,8 @@ View.prototype.initialize = function()
 			&& char !== 'ArrowLeft'
 			&& char !== 'ArrowRight'
 			&& char !== '.'
-<<<<<<< HEAD
 			|| (char === '.' && this.hasDotPrevOrNextSymbol())
-=======
-			|| (char === '.' && this.hasDotPreventOrNextSymbol())
->>>>>>> 03a4f705ff6ee90b3db2cc1fa836809934c7ffa7
+			|| (char === '.' && this.hasDotPrevOrNextSymbol())
 		)
 		{
 			event.preventDefault();

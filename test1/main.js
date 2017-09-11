@@ -5,9 +5,10 @@ document.head.appendChild(importedTextEditor);
 function main()
 {
 	var element = document.createElement('div');
-	element.style.height = '100px';
-	element.style.width = '200px';
+	element.style.height = 'auto';
+	element.style.width = 'auto';
 	element.style.backgroundColor = 'black';
+	element.style.position = 'static';
 
 	document.body.appendChild(element);
 

@@ -27,40 +27,80 @@ View.prototype.initialize = function()
 	this.inputElement_.style.height = '20px';
 
 	this.inputElement_.hidden = false;
-	this.inputElement_.moving = false;
-
+	this.inputElement_.resizing = false;
+	this.inputElement_.lkmPressed = false;
 
 	this.inputElement_.onkeydown = function(event)
 	{
 		var char = event.key;
+
+
 		if(!parseFloat(char)
-			&& char !== '.'
 			&& char !== 'Backspace'
 			&& char !== 'Delete'
 			&& char !== 'ArrowLeft'
 			&& char !== 'ArrowRight'
+			&& char !== '.'
+			|| (char === '.' && this.hasDotPrevOrNextSymbol())
 		)
 		{
 			event.preventDefault();
 		}
+
+
 	};
-	
+
+
+	this.inputElement_.hasDotPrevOrNextSymbol = function()
+	{
+		return this.value[this.selectionStart - 1] === '.' || (typeof this.value[this.selectionStart] !== 'undefined' ?  this.value[this.selectionStart] === '.' : false);
+	}
+
+
+	this.inputElement_.isLetter = function(char)
+	{
+		return typeof char === 'string' && char.length === 1 && char.toUpperCase() !== char.toLowerCase();
+	};
+
+
 	this.inputElement_.onmousedown = function(event)
 	{
 		var target = event.target;
 		var info = target.getBoundingClientRect();
-		if(info.right === event.pageX && info.bottom === event.pageY) {
-			target.style.cursor = 'e-resize';
-		}
-		else if(event.pageX > info.left && event.pageX < info.right && event.pageY > info.top && event.pageY < info.bottom) {
+		if(event.button == 0 && info.right - event.pageX < 3 && info.bottom - event.pageY < 3 && !target.resizing) {
+			target.resizing = true;
+			target.style.cursor = 'move';
 
 		}
-		else {
-			target.style.cursor = 'text';
+		target.lkmPressed = true;
+	};
+
+
+	this.inputElement_.onmouseup = function(event)
+	{
+		if(event.button == 0)
+		{
+			event.target.resizing = false;
+			event.target.style.cursor = 'text';
+			event.target.lkmPressed = false;
 		}
-	}
+	};
 
 
+	this.inputElement_.onmousemove = function(event)
+	{
+		var target = event.target;
+		var info = target.getBoundingClientRect();
+
+		if(document.body.appendChild(document.createElement('div'))) {
+
+		}
+
+		if(target.lkmPressed && target.resizing) {
+			target.style.width += (event.pageX - info.width) + 'px';
+			target.style.bottom += (event.pageY - info.height) + 'px';
+		}
+	};
 
 
 	if(this.parent_)
